@@ -1,0 +1,20 @@
+﻿@model FooterViewModel
+
+<footer class="footer-section text-center">
+    <div class="container">
+        <h2 class="section-title mb-5">Let’s work together</h2>
+        @{ await Html.RenderPartialAsync("CallToAction", false); }
+        @if (Model.SocialLinks.Count > 0)
+        {
+            <div class="social-links">
+            @foreach (var socialLink in Model.SocialLinks)
+            {
+                <a href="@socialLink.HyperLink"><span class="fa fa-@socialLink.FontAwesomeIconName"></span></a>
+            }
+            </div>
+        }
+        <div class="copyright">
+            Copyright &copy; @DateTime.UtcNow.Year All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+        </div>
+    </div>
+</footer>

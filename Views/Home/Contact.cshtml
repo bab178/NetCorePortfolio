@@ -1,0 +1,36 @@
+﻿@model EmailFormModel
+
+@{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel()); }
+
+<section class="page-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 contect-tect">
+                <h2>So, let’s talk</h2>
+            </div>
+        </div>
+        <form asp-action="SendEmail" asp-controller="Home" method="post" class="contact-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <input asp-for="Name" type="text" placeholder="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="FromEmailAddress" type="text" placeholder="E-mail">
+                    <span asp-validation-for="FromEmailAddress" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <input asp-for="Subject" type="text" placeholder="Subject">
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <textarea asp-for="Message" placeholder="Message"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="site-btn">Send</button>
+            </div>
+        </form>
+    </div>
+</section>

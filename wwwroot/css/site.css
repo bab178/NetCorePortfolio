@@ -95,8 +95,8 @@ ol {
         margin-bottom: 0;
     }
 
-/*=== Preloder ===*/
-#preloder {
+/*=== Preloader ===*/
+#preloader {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -445,7 +445,7 @@ ol {
         position: absolute;
         width: 100%;
         height: 100%;
-        left: 0;
+        left: 15px;
         top: 0;
         background: transparent;
         -webkit-transition: all 0.4s ease 0s;
@@ -457,15 +457,15 @@ ol {
             opacity: 0;
             font-size: 30px;
             font-weight: 400;
-            position: absolute;
-            left: 50px;
-            bottom: 50px;
-            color: #fff;
             letter-spacing: 10px;
             -webkit-transition: all 0.3s ease 0s;
             -o-transition: all 0.3s ease 0s;
             transition: all 0.3s ease 0s;
         }
+
+            .portfolio-item .pi-inner h2 a {
+                color: #fff;
+            }
 
     .portfolio-item:hover .pi-inner {
         background: rgba(0, 20, 24, 0.8);
@@ -646,7 +646,6 @@ ol {
         border: none;
         border-bottom: 2px solid #000;
         margin-bottom: 30px;
-        font-size: 12px;
     }
 
     .contact-form textarea {
@@ -656,7 +655,6 @@ ol {
         border: none;
         border-bottom: 2px solid #000;
         margin-bottom: 30px;
-        font-size: 12px;
     }
 
     .contact-form ::-webkit-input-placeholder {

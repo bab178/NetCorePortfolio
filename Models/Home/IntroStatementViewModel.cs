@@ -4,10 +4,14 @@ namespace NetCorePortfolio.Models.Home
 {
     public class IntroStatementViewModel
     {
-        private static readonly int _startingYear = DateTime.UtcNow.Year - 2;
+        public IntroStatementViewModel(int startingYear, string jobTitle)
+        {
+            YearsExperience = DateTime.UtcNow.Year - startingYear;
+            JobTitle = jobTitle;
+        }
 
-        public int YearsExperience => DateTime.UtcNow.Year - _startingYear;
+        public int YearsExperience { get; }
 
-        public string JobTitle => "X";
+        public string JobTitle { get; }
     }
 }

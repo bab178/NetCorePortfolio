@@ -1,6 +1,7 @@
 ﻿@model IndexViewModel
 
-@{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel()); }
+@inject IConfiguration Configuration
+@{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel(Configuration.GetValue<int>("StartingYear"), Configuration.GetValue<string>("JobTitle"))); }
 
 <!-- portfolio section start -->
 <section class="portfolio-section">

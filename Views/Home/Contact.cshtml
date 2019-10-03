@@ -1,6 +1,7 @@
 ﻿@model EmailFormModel
 
-@{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel()); }
+@inject IConfiguration Configuration
+@{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel(Configuration.GetValue<int>("StartingYear"), Configuration.GetValue<string>("JobTitle"))); }
 
 <section class="page-section">
     <div class="container">

@@ -7,7 +7,7 @@
 <section class="page-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3 contect-tect">
+            <div class="col-lg-12 contect-tect">
                 <h2>So, let’s talk</h2>
                 <p>Contact me at <a href="mailto:@contactEmail">@contactEmail</a><br />or use the contact form below!</p>
             </div>
@@ -22,17 +22,23 @@
                     <input asp-for="FromEmailAddress" type="text" placeholder="E-mail">
                     <span asp-validation-for="FromEmailAddress" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <input asp-for="Subject" type="text" placeholder="Subject">
                     <span asp-validation-for="Subject" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <textarea asp-for="Message" placeholder="Message"></textarea>
                     <span asp-validation-for="Message" class="text-danger"></span>
                 </div>
             </div>
-            <div class="text-center">
-                <button class="site-btn">Send</button>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button class="site-btn">Send</button>
+                </div>
             </div>
         </form>
     </div>

@@ -29,7 +29,10 @@ namespace NetCorePortfolio.Controllers
         public IActionResult Index()
         {
             SetTitleAndDescription();
+
             var portfolioItems = new List<PortfolioItem>();
+            _configuration.GetSection("PortfolioItems").Bind(portfolioItems);
+
             return View("Index", new IndexViewModel(portfolioItems));
         }
 

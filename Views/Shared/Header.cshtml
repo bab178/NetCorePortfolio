@@ -7,14 +7,14 @@
 <header class="header-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-3">
+            <div class="col-lg-4 col-md-4">
                 <div class="logo">
                     <a asp-action="Index" asp-controller="Home">
                         <h2 class="site-logo">@Model.ContactName</h2>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-8 col-md-9">
+            <div class="col-lg-8 col-md-8">
                 @{ await Html.RenderPartialAsync("CallToAction", new CallToActionViewModel(isHeader: true)); }
                 <nav class="main-menu">
                     <ul>

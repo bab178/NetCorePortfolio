@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@inject IConfiguration Configuration
+
+@{ string contactName = Configuration.GetValue<string>("ContactName"); }
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewBag.Title</title>
@@ -18,13 +22,13 @@
         <div class="col-xs-12 text-center text-danger">Javascript is required for some parts of this site to work properly.</div>
         <style>.js-only{display:none;}</style>
     </noscript>
-    @{ await Html.RenderPartialAsync("Header"); }
+    @{ await Html.RenderPartialAsync("Header", new HeaderViewModel(contactName)); }
     <div class="body-pad">
         <main role="main">
             @RenderBody()
         </main>
     </div>
-    @{ await Html.RenderPartialAsync("Footer", new FooterViewModel()); }
+    @{ await Html.RenderPartialAsync("Footer", new FooterViewModel(contactName)); }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/mixitup.min.js"></script>

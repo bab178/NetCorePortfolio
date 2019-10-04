@@ -2,8 +2,14 @@
 {
     public class SocialLink
     {
-        public string HyperLink { get; set; }
+        public SocialLink(string hyperLink, string fontAwesomeIconName)
+        {
+            HyperLink = hyperLink;
+            FontAwesomeIconName = fontAwesomeIconName;
+        }
 
-        public string FontAwesomeIconName { get; set; }
+        public string HyperLink { get; }
+
+        public string FontAwesomeIconName { get; }
     }
 }

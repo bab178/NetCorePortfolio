@@ -3,7 +3,6 @@
 @inject IConfiguration Configuration
 @{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel(Configuration.GetValue<int>("StartingYear"), Configuration.GetValue<string>("JobTitle"))); }
 
-<!-- portfolio section start -->
 <section class="portfolio-section">
     <div class="container">
         <ul class="portfolio-filter controls">
@@ -46,4 +45,5 @@
         </div>
     </div>
 </section>
-<!-- portfolio section end -->
+<h2 class="section-title mb-5">Let’s work together</h2>
+@{ await Html.RenderPartialAsync("CallToAction", new CallToActionViewModel(isHeader: false)); }

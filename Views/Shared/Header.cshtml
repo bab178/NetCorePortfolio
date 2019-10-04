@@ -1,4 +1,6 @@
-﻿<div id="preloader" class="js-only">
+﻿@model HeaderViewModel
+
+<div id="preloader" class="js-only">
     <div class="loader"></div>
 </div>
 
@@ -8,11 +10,12 @@
             <div class="col-lg-4 col-md-3">
                 <div class="logo">
                     <a asp-action="Index" asp-controller="Home">
+                        <h2 class="site-logo">@Model.ContactName</h2>
                     </a>
                 </div>
             </div>
             <div class="col-lg-8 col-md-9">
-                @{ await Html.RenderPartialAsync("CallToAction", true); }
+                @{ await Html.RenderPartialAsync("CallToAction", new CallToActionViewModel(isHeader: true)); }
                 <nav class="main-menu">
                     <ul>
                         <li><a asp-action="Index" asp-controller="Home">Home</a></li>

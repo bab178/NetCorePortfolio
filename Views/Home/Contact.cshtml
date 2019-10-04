@@ -2,12 +2,14 @@
 
 @inject IConfiguration Configuration
 @{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel(Configuration.GetValue<int>("StartingYear"), Configuration.GetValue<string>("JobTitle"))); }
+@{ string contactEmail = Configuration.GetValue<string>("ContactEmail"); }
 
 <section class="page-section">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 contect-tect">
                 <h2>So, let’s talk</h2>
+                <p>Contact me at <a href="mailto:@contactEmail">@contactEmail</a><br />or use the contact form below!</p>
             </div>
         </div>
         <form asp-action="SendEmail" asp-controller="Home" method="post" class="contact-form">

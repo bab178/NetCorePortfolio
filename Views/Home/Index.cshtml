@@ -1,8 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IndexViewModel
 
+@inject IConfiguration Configuration
+@{ await Html.RenderPartialAsync("IntroStatement", new IntroStatementViewModel(Configuration.GetValue<int>("StartingYear"), Configuration.GetValue<string>("JobTitle"))); }
+
+<section class="portfolio-section">
+    <div class="container">
+        <ul class="portfolio-filter controls text-center">
+            <li class="control" data-filter="all">All</li>
+            @foreach (var filter in Model.TagList)
+            {
+                <li class="control" data-filter=".@filter">@filter</li>
+            }
+        </ul>
+    </div>
+    <div class="container-fluid p-md-0">
+        <div class="row portfolios-area">
+            @foreach (var item in Model.PortfolioItems)
+            {
+                bool hasTitle = !string.IsNullOrWhiteSpace(item.Title);
+                bool hasLiveDemo = !string.IsNullOrWhiteSpace(item.LiveDemoSrc);
+                bool hasSourceCode = !string.IsNullOrWhiteSpace(item.SourceCodeSrc);
+                int liveDemoColumns = hasLiveDemo && hasSourceCode ? 6 : 12;
+                int sourceCodeColumns = hasLiveDemo && hasSourceCode ? 6 : 12;
+
+                <div class="mix col-lg-6 col-md-6 @string.Join(' ' , item.Tags)">
+                    <div class="portfolio-item" style="background-image:url('@item.ImageSrc')">
+                        <div class="pi-inner text-center row">
+                            @if (hasTitle)
+                            {
+                                <div class="col-lg-12 my-auto">
+                                    <h2>@item.Title</h2>
+                                </div>
+                            }
+                            @if (hasLiveDemo)
+                            {
+                                <h2 class="col-lg-@liveDemoColumns col-md-@liveDemoColumns my-auto">
+                                    <a href="@item.LiveDemoSrc">
+                                        <span class="fa fa-link"></span>
+                                        <br />Live Demo
+                                    </a>
+                                </h2>
+                            }
+                            @if (hasSourceCode)
+                            {
+                                <h2 class="col-lg-@sourceCodeColumns col-md-@sourceCodeColumns my-auto">
+                                    <a href="@item.SourceCodeSrc">
+                                        <span class="fa fa-code"></span>
+                                        <br />Source Code
+                                    </a>
+                                </h2>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="container">
+        <h2 class="section-title mb-5">Let’s work together</h2>
+        @{ await Html.RenderPartialAsync("CallToAction", new CallToActionViewModel(isHeader: false)); }
+    </div>
 </div>

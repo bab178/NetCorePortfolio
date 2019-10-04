@@ -1,6 +1,4 @@
-using System;
-
-namespace NetCorePortfolio.Models
+namespace NetCorePortfolio.Models.Shared
 {
     public class ErrorViewModel
     {

@@ -17,14 +17,21 @@
         <div class="row portfolios-area">
             @foreach (var item in Model.PortfolioItems)
             {
+                bool hasTitle = !string.IsNullOrWhiteSpace(item.Title);
                 bool hasLiveDemo = !string.IsNullOrWhiteSpace(item.LiveDemoSrc);
                 bool hasSourceCode = !string.IsNullOrWhiteSpace(item.SourceCodeSrc);
                 int liveDemoColumns = hasLiveDemo && hasSourceCode ? 6 : 12;
                 int sourceCodeColumns = hasLiveDemo && hasSourceCode ? 6 : 12;
 
-                <div class="mix col-lg-6 col-md-6 @item.Tags[0]">
+                <div class="mix col-lg-6 col-md-6 @string.Join(' ' , item.Tags)">
                     <div class="portfolio-item" style="background-image:url('@item.ImageSrc')">
                         <div class="pi-inner text-center row">
+                            @if (hasTitle)
+                            {
+                                <div class="col-lg-12 my-auto">
+                                    <h2>@item.Title</h2>
+                                </div>
+                            }
                             @if (hasLiveDemo)
                             {
                                 <h2 class="col-lg-@liveDemoColumns col-md-@liveDemoColumns my-auto">

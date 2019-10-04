@@ -1,29 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace NetCorePortfolio.Models.Shared
 {
     public class FooterViewModel
     {
-        public FooterViewModel(string contactName)
+        public FooterViewModel(string contactName, IConfiguration configuration)
         {
             ContactName = contactName;
-            SocialLinks = GetSocialLinks();
+
+            var socialLinks = new List<SocialLink>();
+            configuration.GetSection("SocialLinks").Bind(socialLinks);
+
+            SocialLinks = socialLinks;
         }
 
         public string ContactName { get; }
 
         public List<SocialLink> SocialLinks { get; }
-
-        private List<SocialLink> GetSocialLinks()
-        {
-            return new List<SocialLink>()
-            {
-                new SocialLink("#", "pinterest"),
-                new SocialLink("#", "linkedin"),
-                new SocialLink("#", "instagram"),
-                new SocialLink("#", "facebook"),
-                new SocialLink("#", "twitter")
-            };
-        }
     }
 }

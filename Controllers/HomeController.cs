@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NetCorePortfolio.Models.Home;
 using NetCorePortfolio.Models.Shared;
+using NetCorePortfolio.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -21,13 +19,13 @@ namespace NetCorePortfolio.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IResumeRepository _resumeRepository;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IResumeRepository resumeRepository)
         {
             _logger = logger;
             _configuration = configuration;
-            _webHostEnvironment = webHostEnvironment;
+            _resumeRepository = resumeRepository;
         }
 
         [HttpGet("")]
@@ -48,22 +46,11 @@ namespace NetCorePortfolio.Controllers
             return View("Contact");
         }
 
-
-        [HttpGet("GetResume")]
+        [HttpGet("TryGetLatestResume")]
         public FileContentResult TryGetLatestResume()
         {
-            var resumeDirectoryInfo = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "assets/resumes"));
-            var lastWrittenPdfPath = resumeDirectoryInfo.GetFiles()
-             .OrderByDescending(f => f.LastWriteTime)
-             .FirstOrDefault()?.FullName;
-
-            if (!string.IsNullOrWhiteSpace(lastWrittenPdfPath))
-            {
-                var bytes = System.IO.File.ReadAllBytes(lastWrittenPdfPath);
-                return File(bytes, "application/pdf");
-            }
-
-            return null;
+            var bytes = _resumeRepository.TryGetLastestResume();
+            return bytes != null ? File(bytes, "application/pdf") : null;
         }
 
         [HttpPost("SendEmail")]

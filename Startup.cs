@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetCorePortfolio.Repositories;
 using System.Net;
 
 namespace NetCorePortfolio
@@ -19,6 +20,7 @@ namespace NetCorePortfolio
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IResumeRepository, ResumeRepository>();
             services.AddControllersWithViews();
             services.Configure<ForwardedHeadersOptions>(options =>
             {

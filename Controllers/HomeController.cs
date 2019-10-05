@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NetCorePortfolio.Models.Home;
 using NetCorePortfolio.Models.Shared;
+using NetCorePortfolio.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,11 +19,13 @@ namespace NetCorePortfolio.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IResumeRepository _resumeRepository;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IResumeRepository resumeRepository)
         {
             _logger = logger;
             _configuration = configuration;
+            _resumeRepository = resumeRepository;
         }
 
         [HttpGet("")]
@@ -41,6 +44,13 @@ namespace NetCorePortfolio.Controllers
         {
             SetTitleAndDescription();
             return View("Contact");
+        }
+
+        [HttpGet("TryGetLatestResume")]
+        public FileContentResult TryGetLatestResume()
+        {
+            var bytes = _resumeRepository.TryGetLastestResume();
+            return bytes != null ? File(bytes, "application/pdf") : null;
         }
 
         [HttpPost("SendEmail")]

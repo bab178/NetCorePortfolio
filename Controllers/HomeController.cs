@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NetCorePortfolio.Models.Home;
@@ -6,6 +7,8 @@ using NetCorePortfolio.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -18,11 +21,13 @@ namespace NetCorePortfolio.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _configuration = configuration;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("")]
@@ -41,6 +46,24 @@ namespace NetCorePortfolio.Controllers
         {
             SetTitleAndDescription();
             return View("Contact");
+        }
+
+
+        [HttpGet("GetResume")]
+        public FileContentResult TryGetLatestResume()
+        {
+            var resumeDirectoryInfo = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "assets/resumes"));
+            var lastWrittenPdfPath = resumeDirectoryInfo.GetFiles()
+             .OrderByDescending(f => f.LastWriteTime)
+             .FirstOrDefault()?.FullName;
+
+            if (!string.IsNullOrWhiteSpace(lastWrittenPdfPath))
+            {
+                var bytes = System.IO.File.ReadAllBytes(lastWrittenPdfPath);
+                return File(bytes, "application/pdf");
+            }
+
+            return null;
         }
 
         [HttpPost("SendEmail")]

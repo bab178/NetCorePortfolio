@@ -20,6 +20,10 @@
                     <ul>
                         <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                         <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+                        @if (Model.IsResumeAvailable)
+                        {
+                            <li><a asp-action="TryGetLatestResume" asp-controller="Home">Resume</a></li>
+                        }
                     </ul>
                 </nav>
             </div>

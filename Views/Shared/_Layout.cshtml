@@ -1,6 +1,7 @@
 ﻿@inject IConfiguration Configuration
 
-@{ string contactName = Configuration.GetValue<string>("ContactName"); }
+@{ string contactName = Configuration.GetValue<string>("ContactName");
+   bool isResumeAvailable = Configuration.GetValue<bool?>("IsResumeAvailable") ?? false; }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@
         <div class="col-xs-12 text-center text-danger">Javascript is required for some parts of this site to work properly.</div>
         <style>.js-only{display:none;}</style>
     </noscript>
-    @{ await Html.RenderPartialAsync("Header", new HeaderViewModel(contactName)); }
+    @{ await Html.RenderPartialAsync("Header", new HeaderViewModel(contactName, isResumeAvailable)); }
     <div class="body-pad">
         <main role="main">
             @RenderBody()

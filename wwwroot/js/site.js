@@ -1,14 +1,14 @@
 ﻿/* =================================
 ------------------------------------
-	Riddle - Portfolio
-	Version: 1.0
+    Riddle - Portfolio
+    Version: 1.0
  ------------------------------------ 
  ====================================*/
 'use strict';
 $(window).on('load', function () {
-	/*------------------
-		Preloader
-	--------------------*/
+    /*------------------
+        Preloader
+    --------------------*/
     $(".loader").fadeOut();
     $("#preloader").delay(400).fadeOut("slow");
     if ($('.portfolios-area').length > 0) {
@@ -18,17 +18,17 @@ $(window).on('load', function () {
 });
 
 (function ($) {
-	/*------------------
-		Navigation
-	--------------------*/
+    /*------------------
+        Navigation
+    --------------------*/
     $('.nav-switch').on('click', function (event) {
         $('.main-menu').slideToggle(400);
         event.preventDefault();
     });
 
-	/*----------------------
-		Portfolio layout
-	------------------------*/
+    /*----------------------
+        Portfolio layout
+    ------------------------*/
     var port_fi = $('.portfolios-area .first-item'),
         port_si = $('.portfolios-area .second-item'),
         port_intro_h = $('.portfolio-intro').innerHeight();
@@ -42,9 +42,9 @@ $(window).on('load', function () {
         $(this).height(pi_width + 50);
     });
 
-	/*------------------
-		Accordions
-	--------------------*/
+    /*------------------
+        Accordions
+    --------------------*/
     $('.panel-link').on('click', function (e) {
         $('.panel-link').parent('.panel-header').removeClass('active');
         var $this = $(this).parent('.panel-header');

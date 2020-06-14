@@ -12,7 +12,7 @@
                 <p>Contact me at <a href="mailto:@contactEmail">@contactEmail</a><br />or use the contact form below!</p>
             </div>
         </div>
-        <form asp-action="SendEmail" asp-controller="Home" method="post" class="contact-form">
+        <form id="sendEmailForm" asp-action="SendEmail" asp-controller="Home" method="post" class="contact-form">
             <div class="row">
                 <div class="col-md-6">
                     <input asp-for="Name" type="text" placeholder="Name">
@@ -31,7 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <textarea asp-for="Message" placeholder="Message"></textarea>
+                    <textarea id="message" asp-for="Message" placeholder="Message"></textarea>
                     <span asp-validation-for="Message" class="text-danger"></span>
                 </div>
             </div>
@@ -43,3 +43,41 @@
         </form>
     </div>
 </section>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $("#sendEmailForm").submit(function (e) {
+
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (data && data.success === true) {
+
+                        // clear all input values
+                        jQuery("input").val('')
+
+                        // clear message textarea
+                        jQuery("#message").val('');
+
+                        alert("Email sent!");
+                    }
+                    else {
+                        alert("Failed to send email from form, please send email directly instead.");
+                    }
+                },
+                error: function (data) {
+                    const errorArray = JSON.parse(data.responseText);
+                    const message = errorArray.join("\n");
+                    alert(`Failed to send email from form:\n${message}`);
+                }
+            });
+        });
+    });
+</script>

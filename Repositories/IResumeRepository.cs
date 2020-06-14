@@ -2,6 +2,6 @@
 {
     public interface IResumeRepository
     {
-        byte[] TryGetLastestResume();
+        byte[] TryGetLatestResume();
     }
 }

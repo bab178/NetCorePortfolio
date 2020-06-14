@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCorePortfolio.Repositories
 {
@@ -16,7 +13,7 @@ namespace NetCorePortfolio.Repositories
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public byte[] TryGetLastestResume()
+        public byte[] TryGetLatestResume()
         {
             var resumeDirectoryInfo = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "assets/resumes"));
             var lastWrittenPdfPath = resumeDirectoryInfo.GetFiles()

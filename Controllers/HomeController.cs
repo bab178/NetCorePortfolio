@@ -7,6 +7,7 @@ using NetCorePortfolio.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -60,7 +61,11 @@ namespace NetCorePortfolio.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                var errors = ModelState.Values
+                    .SelectMany(e => e.Errors)
+                    .Select(e => e.ErrorMessage);
+
+                return BadRequest(errors);
             }
 
             try

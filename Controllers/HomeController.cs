@@ -49,7 +49,7 @@ namespace NetCorePortfolio.Controllers
         [HttpGet("TryGetLatestResume")]
         public FileContentResult TryGetLatestResume()
         {
-            var bytes = _resumeRepository.TryGetLastestResume();
+            var bytes = _resumeRepository.TryGetLatestResume();
             return bytes != null ? File(bytes, "application/pdf") : null;
         }
 
